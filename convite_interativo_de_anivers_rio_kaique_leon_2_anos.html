@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta property="og:title" content="Aniversário de 2 Anos - Kaique Leon" />
+  <meta property="og:description" content="Você foi convidado para celebrar o aniversário do Kaique Leon!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://localhost:8000/assets/1.png" />
+  <meta property="og:image:secure_url" content="https://localhost:8000/assets/1.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Convite do aniversário do Kaique Leon" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Aniversário de 2 Anos - Kaique Leon" />
+  <meta name="twitter:description" content="Você foi convidado para celebrar o aniversário do Kaique Leon!" />
+  <meta name="twitter:image" content="https://localhost:8000/assets/1.png" />
+  <title>Aniversário de 2 Anos - Kaique Leon</title>
+
+  <!-- Google Fonts: Fredoka e Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['Fredoka', 'sans-serif'],
+            quicksand: ['Quicksand', 'sans-serif'],
+          },          colors: {
+            kart: {
+              sky: '#56c8f5',
+              grass: '#44ab2e',
+              grassDark: '#2e7d1e',
+              yellow: '#ffcf00',
+              red: '#e53935',
+              blue: '#29b6f6',
+              road: '#2b303a',
+            }
+          },
+          animation: {
+            'bounce-slow': 'bounce 2.2s infinite',
+            'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 18s linear infinite',
+            'float': 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(180deg, #48c0f3 0%, #85d9fa 25%, #44ab2e 65%, #257317 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .title-font {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
+
+    /* Padrão de estrada */
+    .road-pattern {
+      background-color: #2b303a;
+      background-image: linear-gradient(90deg, transparent 50%, #ffffff 50%);
+      background-size: 36px 5px;
+      background-repeat: repeat-x;
+      background-position: center;
+    }
+
+    /* Bandeirinhas festivas */
+    .bunting-bg {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28' preserveAspectRatio='none'%3E%3Cpath d='M0,0 Q15,12 30,0 L15,24 Z' fill='%23e53935'/%3E%3Cpath d='M30,0 Q45,12 60,0 L45,24 Z' fill='%23ffcf00'/%3E%3Cpath d='M60,0 Q75,12 90,0 L75,24 Z' fill='%2300c853'/%3E%3Cpath d='M90,0 Q105,12 120,0 L105,24 Z' fill='%2329b6f6'/%3E%3Cpath d='M0,0 Q60,18 120,0' fill='none' stroke='%2337474f' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 130px 28px;
+    }
+
+    /* Brilho pulsante no botão Play */
+    .pulse-glow {
+      box-shadow: 0 0 0 0 rgba(255, 207, 0, 0.75);
+      animation: pulse-glow-anim 1.6s infinite cubic-bezier(0.66, 0, 0, 1);
+      margin-top: 220px;
+    }
+    @keyframes pulse-glow-anim {
+      to {
+        box-shadow: 0 0 0 26px rgba(255, 207, 0, 0);
+      }
+    }
+
+    /* Aspect ratio para vídeo vertical */
+    .video-aspect-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-height: 600px;
+    }
+  </style>
+</head>
+
+<body class="flex justify-center items-start p-0 sm:p-4 text-slate-800 antialiased selection:bg-yellow-300">
+
+  <!-- CARD PRINCIPAL DO CONVITE (Mobile First) -->
+  <main class="w-full max-w-[440px] bg-[#44ab2e] min-h-screen sm:min-h-0 sm:my-3 sm:rounded-3xl shadow-2xl overflow-hidden border-0 sm:border-4 border-yellow-300 relative flex flex-col">
+    
+    <!-- TOPO FESTIVO (CÉU, SOL E NOME DO ANIVERSARIANTE) -->
+    <header class="relative bg-gradient-to-b from-[#44bdf1] via-[#6ed0f7] to-[#97e2fd] pt-4 pb-2 px-4 overflow-hidden border-b-4 border-dashed border-white/60">
+      
+      <!-- Bandeirinhas no topo -->
+      <div class="absolute top-0 left-0 right-0 h-7 bunting-bg z-20 opacity-95"></div>
+
+      <!-- Sol Sorridente com raios girando -->
+      <div class="absolute -top-1 -right-1 z-10 animate-spin-slow opacity-90">
+        <svg class="w-18 h-18 text-yellow-300 fill-current drop-shadow-md" viewBox="0 0 100 100" style="width: 70px; height: 70px;">
+          <circle cx="50" cy="50" r="22" fill="#ffd000" stroke="#f59e0b" stroke-width="2"/>
+          <g stroke="#f59e0b" stroke-width="3" stroke-linecap="round">
+            <line x1="50" y1="12" x2="50" y2="24"/>
+            <line x1="50" y1="76" x2="50" y2="88"/>
+            <line x1="12" y1="50" x2="24" y2="50"/>
+            <line x1="76" y1="50" x2="88" y2="50"/>
+            <line x1="23" y1="23" x2="32" y2="32"/>
+            <line x1="68" y1="68" x2="77" y2="77"/>
+            <line x1="23" y1="77" x2="32" y2="68"/>
+            <line x1="68" y1="32" x2="77" y2="23"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Nuvens Flutuantes -->
+      <div class="absolute top-6 left-3 z-0 animate-float opacity-80">
+        <i class="fa-solid fa-cloud text-white text-2xl drop-shadow"></i>
+      </div>
+
+      <!-- Cabeçalho -->
+      <div class="relative z-20 text-center mt-2.5 mb-1">
+        <span class="inline-block bg-yellow-400 text-yellow-950 font-bold text-xs uppercase px-3 py-0.5 rounded-full shadow border-2 border-white animate-bounce-slow">
+          🏁 Você foi Convidado! 🏁
+        </span>
+        <h1 class="title-font text-3xl sm:text-4xl font-extrabold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] tracking-wide mt-1">
+          KAIQUE LEON
+        </h1>
+        <div class="inline-flex items-center gap-1.5 bg-red-600 text-white font-bold text-xs sm:text-sm px-3.5 py-0.5 rounded-full shadow-md border-2 border-white transform -rotate-1">
+          <i class="fa-solid fa-car text-yellow-300"></i>
+          <span>VAI FAZER 2 ANOS!</span>
+          <i class="fa-solid fa-star text-yellow-300"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================================================================= -->
+    <!-- ÁREA CENTRAL INTERATIVA: CAPA (IMAGEM 1) -> TROCA PELO VÍDEO -->
+    <!-- ================================================================= -->
+    <section class="relative bg-slate-950 w-full overflow-hidden flex flex-col items-center justify-center min-h-[480px] sm:min-h-[520px]">
+      
+      <!-- ESTADO 1: CAPA COM A IMAGEM 1 E BOTÃO "CLIQUE AQUI!" -->
+      <div id="coverContainer" onclick="startInvitationVideo()" class="relative w-full h-full min-h-[480px] sm:min-h-[520px] flex flex-col justify-between items-center cursor-pointer group select-none transition-all duration-300">
+        
+        <!-- Imagem 1 de fundo (com fallback caso carregue offline) -->
+        <img id="coverImg" src="assets/3.png" alt="Capa Convite Kaique Leon" class="absolute inset-0 w-full h-full object-cover object-center z-0 transition-transform duration-500 group-hover:scale-[1.02]" onerror="this.style.display='none'; document.getElementById('vectorCoverFallback').classList.remove('hidden');" />
+
+        <!-- Fallback vetorial ilustrado caso a imagem 1.png não esteja no mesmo diretório -->
+        <div id="vectorCoverFallback" class="hidden absolute inset-0 bg-gradient-to-b from-[#56c8f5] via-[#8ae06a] to-[#3ca027] z-0 flex flex-col justify-between p-3">
+          <div class="text-right">
+            <span class="bg-[#1b5e20] text-white text-[10px] font-bold px-2 py-1 rounded border border-white">EXCITING SPINS! ➡️</span>
+          </div>
+          <div class="w-full h-12 bg-[#2b303a] rounded-lg flex items-center justify-around">
+            <span class="text-xs text-yellow-300 font-black">🚗 BEEP!</span>
+            <span class="text-xs text-red-400 font-black">🚗 BEEP!</span>
+          </div>
+          <div class="flex justify-between items-end">
+            <span class="w-8 h-8 bg-red-600 rounded flex items-center justify-center text-white text-[9px] font-bold">STOP</span>
+            <span class="text-xs">🚦</span>
+          </div>
+        </div>
+
+        <!-- Camada de sobreposição com o Botão de Play Pulsante e Texto de Chamada -->
+        <div class="relative z-20 flex-1 flex flex-col items-center justify-center p-4">
+          
+          <!-- Botão Amarelo de Play Central com Efeito Pulsante -->
+          <div class="w-24 h-24 sm:w-28 sm:h-28 bg-[#ffd000] rounded-full border-4 border-white shadow-2xl flex items-center justify-center pulse-glow group-hover:scale-110 transition-transform duration-300">
+            <div class="w-0 h-0 border-t-[16px] border-t-transparent border-b-[16px] border-b-transparent border-l-[28px] border-l-white ml-2 drop-shadow-md"></div>
+          </div>
+
+          <!-- Texto "CLIQUE AQUI!" -->
+          <div class="mt-3 text-center">
+            <h2 class="title-font text-4xl sm:text-5xl font-black text-[#ffeb3b] tracking-wider drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] animate-pulse-fast transform -rotate-2">
+              CLIQUE AQUI!
+            </h2>
+            <div class="inline-flex items-center gap-1.5 bg-black/60 text-white text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full mt-2 backdrop-blur-sm border border-white/50 shadow">
+              <i class="fa-solid fa-circle-play text-yellow-300 text-sm"></i>
+              <span>Toque para ver o convite</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ESTADO 2: VÍDEO EXECUTANDO AUTOMATICAMENTE (Substitui a capa após o clique) -->
+      <div id="videoContainer" class="hidden w-full flex flex-col items-center justify-center bg-black relative animate-fade-in">
+        
+        <!-- Player de Vídeo MP4 Principal (reproduz direto o arquivo local do convite) -->
+        <video id="invitationVideo" playsinline preload="auto" class="w-full h-auto max-h-[580px] object-contain bg-black shadow-2xl">
+          <source src="assets/Convite%20de-2-anos-kaique-leon.mp4" type="video/mp4">
+          Seu navegador não suporta reprodução direta de vídeo.
+        </video>
+
+        <!-- Player Fallback YouTube Shorts (caso o arquivo MP4 local não esteja acessível no ambiente) -->
+        <div id="youtubeContainer" class="hidden w-full h-[520px] bg-black">
+          <iframe id="ytIframe" class="w-full h-full" src="" title="Convite de Aniversário Kaique Leon" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <!-- Barra de Controles Rápidos do Vídeo -->
+        <div class="w-full bg-slate-900/95 text-white px-3 py-2 flex items-center justify-between border-t border-slate-700">
+          <div class="flex items-center gap-2">
+            <button id="btnPlayPause" onclick="togglePlayPause()" class="w-8 h-8 rounded-full bg-yellow-400 text-yellow-950 flex items-center justify-center hover:bg-yellow-300 active:scale-95 transition shadow" title="Pausar / Reproduzir">
+              <i id="playIcon" class="fa-solid fa-pause text-xs"></i>
+            </button>
+            <button id="btnMute" onclick="toggleMute()" class="w-8 h-8 rounded-full bg-slate-700 text-white flex items-center justify-center hover:bg-slate-600 active:scale-95 transition shadow" title="Ativar / Desativar Som">
+              <i id="muteIcon" class="fa-solid fa-volume-high text-xs"></i>
+            </button>
+            <span class="text-xs font-bold text-yellow-300 ml-1">Reproduzindo Convite 🎬</span>
+          </div>
+          
+          <button onclick="restartVideo()" class="text-xs text-slate-300 hover:text-white flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-600 active:scale-95 transition">
+            <i class="fa-solid fa-rotate-left"></i> Rever
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- INFORMAÇÕES DO EVENTO, CONTAGEM E BOTÕES DE AÇÃO -->
+    <!-- ================================================================= -->
+    <div class="flex-1 bg-gradient-to-b from-[#44ab2e] to-[#247316] p-4 text-white space-y-4">
+      
+      <!-- CARD 1: CONTAGEM REGRESSIVA -->
+      <section class="bg-white text-slate-800 rounded-2xl p-4 shadow-xl border-4 border-yellow-300 relative overflow-hidden">
+        <div class="text-center mb-3">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-green-700 bg-green-100 px-3 py-0.5 rounded-full inline-flex items-center gap-1">
+            <i class="fa-regular fa-clock animate-spin-slow"></i> Contagem Regressiva
+          </span>
+          <h3 class="title-font text-xl font-bold text-slate-800 mt-1">
+            Falta pouco para a largada! 🏁
+          </h3>
+        </div>
+
+        <!-- Grade dos Números do Contador -->
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div class="bg-gradient-to-b from-yellow-400 to-amber-500 rounded-xl p-2 text-yellow-950 shadow-md border-2 border-white">
+            <span id="countDays" class="block title-font text-2xl sm:text-3xl font-black leading-none">--</span>
+            <span class="text-[10px] font-bold uppercase tracking-tight">Dias</span>
+          </div>
+          <div class="bg-gradient-to-b from-blue-400 to-blue-600 rounded-xl p-2 text-white shadow-md border-2 border-white">
+            <span id="countHours" class="block title-font text-2xl sm:text-3xl font-black leading-none">--</span>
+            <span class="text-[10px] font-bold uppercase tracking-tight">Horas</span>
+          </div>
+          <div class="bg-gradient-to-b from-green-500 to-emerald-700 rounded-xl p-2 text-white shadow-md border-2 border-white">
+            <span id="countMinutes" class="block title-font text-2xl sm:text-3xl font-black leading-none">--</span>
+            <span class="text-[10px] font-bold uppercase tracking-tight">Min</span>
+          </div>
+          <div class="bg-gradient-to-b from-red-500 to-rose-700 rounded-xl p-2 text-white shadow-md border-2 border-white">
+            <span id="countSeconds" class="block title-font text-2xl sm:text-3xl font-black leading-none">--</span>
+            <span class="text-[10px] font-bold uppercase tracking-tight">Seg</span>
+          </div>
+        </div>
+
+        <p class="text-center text-xs text-slate-600 font-bold mt-3">
+          🗓️ 31 de Outubro • às 18:00 Horas
+        </p>
+      </section>
+
+      <!-- CARD 2: DETALHES DO EVENTO (DATA, HORA E LOCAL) -->
+      <section class="bg-slate-900/45 backdrop-blur-md rounded-2xl p-4 border-2 border-white/30 shadow-lg space-y-3">
+        
+        <!-- Data e Hora -->
+        <div class="flex items-center gap-3 bg-white/10 p-2.5 rounded-xl">
+          <div class="w-12 h-12 rounded-xl bg-yellow-400 text-yellow-950 flex items-center justify-center text-xl font-black shadow-md shrink-0">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+          <div>
+            <span class="text-xs text-yellow-300 font-bold block uppercase">Data & Horário</span>
+            <p class="font-bold text-white text-base leading-tight">31 de Outubro</p>
+            <p class="text-xs text-white/80">Início pontual às 18:00h</p>
+          </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="flex items-start gap-3 bg-white/10 p-2.5 rounded-xl">
+          <div class="w-12 h-12 rounded-xl bg-red-500 text-white flex items-center justify-center text-xl font-black shadow-md shrink-0">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div class="flex-1">
+            <span class="text-xs text-yellow-300 font-bold block uppercase">Local da Festa</span>
+            <p class="font-bold text-white text-sm leading-snug">Av. Gen. Euclides Figueiredo, Nº 901</p>
+            <p class="text-xs text-white/80">Bairro Dom Luciano • Aracaju - SE</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- BOTÕES PRINCIPAIS DE AÇÃO -->
+      <section class="space-y-3 pt-1">
+        
+        <!-- 1. BOTÃO CONFIRMAR PRESENÇA (WHATSAPP RSVP) -->
+        <button onclick="openModal('modalRSVP')" class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-extrabold text-base py-3.5 px-4 rounded-2xl shadow-xl border-2 border-emerald-300 flex items-center justify-center gap-3 active:scale-[0.98] transition-all transform">
+          <div class="w-8 h-8 rounded-full bg-white text-emerald-600 flex items-center justify-center text-lg shadow">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <span class="title-font tracking-wide">CONFIRMAR PRESENÇA</span>
+          <i class="fa-solid fa-chevron-right text-xs opacity-75 ml-auto"></i>
+        </button>
+
+        <!-- 2. BOTÃO COMO CHEGAR (MAPAS / GPS) -->
+        <button onclick="openModal('modalLocation')" class="w-full bg-gradient-to-r from-blue-500 to-sky-600 hover:from-blue-400 hover:to-sky-500 text-white font-extrabold text-base py-3.5 px-4 rounded-2xl shadow-xl border-2 border-sky-300 flex items-center justify-center gap-3 active:scale-[0.98] transition-all transform">
+          <div class="w-8 h-8 rounded-full bg-white text-blue-600 flex items-center justify-center text-lg shadow">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <span class="title-font tracking-wide">COMO CHEGAR (GPS)</span>
+          <i class="fa-solid fa-chevron-right text-xs opacity-75 ml-auto"></i>
+        </button>
+
+        <!-- 3. GRADE COM: ADICIONAR NA AGENDA -->
+        <div class="grid grid-cols-1 gap-3">
+          
+          <!-- Adicionar à Agenda -->
+          <button onclick="addToGoogleCalendar()" class="bg-gradient-to-b from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-yellow-950 font-bold text-xs sm:text-sm p-3 rounded-2xl shadow-lg border-2 border-white flex flex-col items-center justify-center gap-1 active:scale-95 transition">
+            <i class="fa-regular fa-calendar-plus text-xl text-yellow-950"></i>
+            <span>Salvar na Agenda</span>
+          </button>
+
+        </div>
+
+        <!-- 4. BOTÃO DE RECADINHO / PARABÉNS -->
+        <button onclick="openModal('modalMessage')" class="w-full bg-white/20 hover:bg-white/30 text-white font-bold text-sm py-2.5 px-4 rounded-xl border border-white/40 flex items-center justify-center gap-2 active:scale-95 transition">
+          <i class="fa-solid fa-heart text-red-400"></i>
+          <span>Deixar um Recado para o Kaique</span>
+        </button>
+
+      </section>
+
+      <!-- MURAL DE MENSAGENS CARINHOSAS -->
+      <section class="bg-white/10 rounded-2xl p-3 border border-white/20">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-yellow-300 flex items-center gap-1">
+            <i class="fa-solid fa-comments"></i> Mensagens dos Convidados
+          </span>
+          <span id="msgCountBadge" class="text-[10px] bg-yellow-400 text-yellow-950 font-bold px-2 py-0.5 rounded-full"> recado(s)</span>
+        </div>
+        
+        <div id="messagesList" class="space-y-2 max-h-36 overflow-y-auto pr-1">
+          
+        </div>
+      </section>
+
+      <!-- BOTÃO COMPARTILHAR CONVITE -->
+      <div class="pt-2 pb-4 text-center">
+        <button onclick="shareInvite()" class="inline-flex items-center gap-2 text-xs font-bold text-yellow-200 hover:text-white bg-black/30 hover:bg-black/40 px-4 py-2 rounded-full border border-yellow-300/40 transition">
+          <i class="fa-solid fa-share-nodes"></i> Compartilhar Convite com Amigos
+        </button>
+        <p class="text-[11px] text-white/70 mt-3 font-medium">
+          Esperamos você para acelerar com a gente nessa festa! 🚗💨
+        </p>
+      </div>
+
+    </div>
+
+    <!-- PISTA DECORATIVA NO RODAPÉ -->
+    <div class="w-full h-8 road-pattern relative z-10 flex items-center justify-center">
+      <span class="text-[10px] font-black text-yellow-300 tracking-widest uppercase bg-slate-900 px-3 py-0.5 rounded-full border border-white/20">
+        🏎️ BI-BI! BEEP! BEEP! 🏎️
+      </span>
+    </div>
+
+  </main>
+
+
+  <!-- ================================================================= -->
+  <!-- MODAIS INTERATIVOS -->
+  <!-- ================================================================= -->
+
+  <!-- MODAL 1: CONFIRMAR PRESENÇA (WHATSAPP) -->
+  <div id="modalRSVP" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl border-4 border-emerald-400 text-slate-800 relative">
+      <button onclick="closeModal('modalRSVP')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center mb-4">
+        <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-2xl mb-2 shadow-inner">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <h3 class="title-font text-2xl font-bold text-emerald-700">Confirmar Presença</h3>
+        <p class="text-xs text-slate-500">Avise a família do Kaique que você vai!</p>
+      </div>
+
+      <form id="rsvpForm" onsubmit="handleRSVPSubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Seu Nome / Família:</label>
+          <input type="text" id="rsvpName" required placeholder="Ex: Lucas e Família" class="w-full px-3 py-2 text-sm rounded-xl border-2 border-slate-200 focus:border-emerald-500 focus:outline-none" />
+        </div>
+
+        <button type="submit" class="w-full mt-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow-lg border-2 border-emerald-300 flex items-center justify-center gap-2 active:scale-95 transition">
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+          <span>Enviar Confirmação</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- MODAL 2: COMO CHEGAR (MAPAS / WAZE) -->
+  <div id="modalLocation" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl border-4 border-blue-400 text-slate-800 relative">
+      <button onclick="closeModal('modalLocation')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center mb-4">
+        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto text-2xl mb-2 shadow-inner">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h3 class="title-font text-2xl font-bold text-blue-700">Como Chegar</h3>
+        <p class="text-xs text-slate-600 font-semibold mt-1">Av. Gen. Euclides Figueiredo, Nº 901<br><span class="text-slate-500 font-normal">Dom Luciano • Aracaju - SE</span></p>
+      </div>
+
+      <div class="space-y-2.5">
+        <!-- Google Maps -->
+        <a href="https://www.google.com/maps/search/?api=1&query=Av.+Gen.+Euclides+Figueiredo,+901+-+Dom+Luciano,+Aracaju+-+SE" target="_blank" class="w-full bg-[#4285F4] hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-between shadow-md active:scale-95 transition">
+          <span class="flex items-center gap-2.5 text-sm">
+            <i class="fa-brands fa-google text-lg"></i> Abrir no Google Maps
+          </span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        </a>
+
+        <!-- Waze -->
+        <a href="https://waze.com/ul?q=Av.+Gen.+Euclides+Figueiredo,+901+-+Dom+Luciano,+Aracaju+-+SE" target="_blank" class="w-full bg-[#33ccff] hover:bg-cyan-500 text-slate-900 font-bold py-3 px-4 rounded-xl flex items-center justify-between shadow-md active:scale-95 transition">
+          <span class="flex items-center gap-2.5 text-sm">
+            <i class="fa-brands fa-waze text-lg"></i> Navegar com Waze
+          </span>
+          <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+        </a>
+
+        <!-- Copiar Endereço -->
+        <button onclick="copyAddress()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 border border-slate-300 text-xs active:scale-95 transition">
+          <i class="fa-regular fa-copy"></i>
+          <span id="copyBtnText">Copiar Endereço Completo</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL 4: DEIXAR UM RECADO -->
+  <div id="modalMessage" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl w-full max-w-sm p-5 shadow-2xl border-4 border-yellow-400 text-slate-800 relative">
+      <button onclick="closeModal('modalMessage')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center mb-3">
+        <div class="w-14 h-14 bg-red-100 text-red-500 rounded-2xl flex items-center justify-center mx-auto text-2xl mb-2 shadow-inner">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <h3 class="title-font text-2xl font-bold text-slate-800">Mural do Kaique</h3>
+        <p class="text-xs text-slate-500">Deixe uma mensagem de parabéns para o pequeno piloto!</p>
+      </div>
+
+      <form id="msgForm" onsubmit="handleMessageSubmit(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Seu Nome:</label>
+          <input type="text" id="senderName" required placeholder="Ex: Tia Juliana" class="w-full px-3 py-2 text-sm rounded-xl border-2 border-slate-200 focus:border-yellow-400 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Sua Mensagem:</label>
+          <textarea id="senderText" rows="3" required placeholder="Ex: Parabéns príncipe lindo! Que seja um dia maravilhoso!" class="w-full px-3 py-2 text-sm rounded-xl border-2 border-slate-200 focus:border-yellow-400 focus:outline-none"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold py-3 rounded-xl shadow-lg border-2 border-white flex items-center justify-center gap-2 active:scale-95 transition">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Publicar no Mural</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================================================================= -->
+  <!-- JAVASCRIPT: CONTROLE DO VÍDEO, CONTAGEM E AÇÕES -->
+  <!-- ================================================================= -->
+  <script>
+    const EVENT_DATE = new Date("2026-10-31T18:00:00");
+    const ADDRESS_TEXT = "Av. Gen. Euclides Figueiredo, Nº 901, Dom Luciano, Aracaju - SE";
+    const YOUTUBE_SHORTS_ID = "s0BG_JeFFRE"; // Fallback URL: https://youtube.com/shorts/s0BG_JeFFRE
+
+    const coverContainer = document.getElementById('coverContainer');
+    const videoContainer = document.getElementById('videoContainer');
+    const invitationVideo = document.getElementById('invitationVideo');
+    const youtubeContainer = document.getElementById('youtubeContainer');
+    const ytIframe = document.getElementById('ytIframe');
+
+    // DISPARAR O VÍDEO AUTOMATICAMENTE APÓS O CLIQUE NA CAPA
+    function startInvitationVideo() {
+      // 1. Dispara confetes comemorativos
+      fireConfetti();
+
+      // 2. Esconde a imagem de capa e revela a área do vídeo
+      coverContainer.classList.add('hidden');
+      videoContainer.classList.remove('hidden');
+
+      // 3. Inicia o vídeo MP4 com som
+      invitationVideo.muted = false;
+      const playPromise = invitationVideo.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          document.getElementById('playIcon').className = 'fa-solid fa-pause text-xs';
+        }).catch(err => {
+          console.warn("Não foi possível reproduzir o MP4 local, alternando para o fallback do YouTube:", err);
+          switchToYouTubeFallback();
+        });
+      }
+    }
+
+    // Alternar para YouTube caso o arquivo local não seja encontrado
+    function switchToYouTubeFallback() {
+      invitationVideo.classList.add('hidden');
+      youtubeContainer.classList.remove('hidden');
+      ytIframe.src = `https://www.youtube-nocookie.com/embed/${YOUTUBE_SHORTS_ID}?autoplay=1&playsinline=1&rel=0&modestbranding=1`;
+    }
+
+    // Detectar erro no carregamento do arquivo MP4 nativo
+    invitationVideo.onerror = function() {
+      switchToYouTubeFallback();
+    };
+
+    // Ao terminar o vídeo
+    invitationVideo.onended = function() {
+      document.getElementById('playIcon').className = 'fa-solid fa-play text-xs';
+      fireConfetti();
+    };
+
+    // CONTROLES DE REPRODUÇÃO
+    function togglePlayPause() {
+      if (!youtubeContainer.classList.contains('hidden')) return;
+      if (invitationVideo.paused) {
+        invitationVideo.play();
+        document.getElementById('playIcon').className = 'fa-solid fa-pause text-xs';
+      } else {
+        invitationVideo.pause();
+        document.getElementById('playIcon').className = 'fa-solid fa-play text-xs';
+      }
+    }
+
+    function toggleMute() {
+      if (!youtubeContainer.classList.contains('hidden')) return;
+      invitationVideo.muted = !invitationVideo.muted;
+      const muteIcon = document.getElementById('muteIcon');
+      if (invitationVideo.muted) {
+        muteIcon.className = 'fa-solid fa-volume-xmark text-xs text-red-400';
+      } else {
+        muteIcon.className = 'fa-solid fa-volume-high text-xs';
+      }
+    }
+
+    function restartVideo() {
+      if (!youtubeContainer.classList.contains('hidden')) {
+        ytIframe.src = `https://www.youtube-nocookie.com/embed/${YOUTUBE_SHORTS_ID}?autoplay=1&playsinline=1&rel=0&modestbranding=1`;
+        return;
+      }
+      invitationVideo.currentTime = 0;
+      invitationVideo.play();
+      document.getElementById('playIcon').className = 'fa-solid fa-pause text-xs';
+      fireConfetti();
+    }
+
+    // CONFETES
+    function fireConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 60,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#ffd000', '#e53935', '#29b6f6', '#00c853', '#ffffff']
+        });
+      }
+    }
+
+    // CONTAGEM REGRESSIVA
+    function updateCountdown() {
+      const now = new Date();
+      let target = new Date(EVENT_DATE);
+      if (target.getTime() < now.getTime()) {
+        target = new Date(now.getFullYear(), 9, 31, 18, 0, 0);
+        if (target.getTime() < now.getTime()) {
+          target.setFullYear(now.getFullYear() + 1);
+        }
+      }
+
+      const diff = target - now;
+
+      if (diff <= 0) {
+        document.getElementById('countDays').innerText = "00";
+        document.getElementById('countHours').innerText = "00";
+        document.getElementById('countMinutes').innerText = "00";
+        document.getElementById('countSeconds').innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('countDays').innerText = String(days).padStart(2, '0');
+      document.getElementById('countHours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('countMinutes').innerText = String(minutes).padStart(2, '0');
+      document.getElementById('countSeconds').innerText = String(seconds).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // GERENCIAMENTO DE MODAIS
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    window.addEventListener('click', function(e) {
+      const modais = ['modalRSVP', 'modalLocation', 'modalGifts', 'modalMessage'];
+      modais.forEach(id => {
+        const el = document.getElementById(id);
+        if (e.target === el) closeModal(id);
+      });
+    });
+
+    // SUBMIT DO RSVP (WHATSAPP)
+    function handleRSVPSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('rsvpName').value.trim();
+      const adults = document.getElementById('rsvpAdults').value;
+      const kids = document.getElementById('rsvpKids').value;
+      const phone = "5579991077759";
+
+      if (!name) return;
+
+      const message = `✓ *Confirmação de Presença - Aniversário do Kaique Leon (2 Anos)* \n\n` +
+                      `Olá! Aqui é *${name}*.\n` +
+                      `Confirmamos nossa presença:\n` +
+                      `▦ *Data:* 31 de Outubro às 18:00h\n` +
+                      `Mal podemos esperar para comemorar juntos! `;
+
+      const encodedMsg = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${phone}?text=${encodedMsg}`;
+
+      fireConfetti();
+      closeModal('modalRSVP');
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // SALVAR NA AGENDA GOOGLE
+    function addToGoogleCalendar() {
+      fireConfetti();
+      const title = encodeURIComponent("Aniversário de 2 Anos - Kaique Leon 🚗🎈");
+      const details = encodeURIComponent("Comemoração de 2 anos do Kaique Leon! Venha acelerar com a gente!");
+      const location = encodeURIComponent(ADDRESS_TEXT);
+      const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261031T210000Z/20261101T010000Z&details=${details}&location=${location}`;
+      window.open(googleCalUrl, '_blank');
+    }
+
+    // COPIAR ENDEREÇO
+    function copyAddress() {
+      const btn = document.getElementById('copyBtnText');
+      const tempInput = document.createElement("textarea");
+      tempInput.value = ADDRESS_TEXT;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+
+      btn.innerText = "Endereço Copiado! ✓";
+      setTimeout(() => {
+        btn.innerText = "Copiar Endereço Completo";
+      }, 2500);
+    }
+
+    // MURAL DE MENSAGENS
+    function handleMessageSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('senderName').value.trim();
+      const text = document.getElementById('senderText').value.trim();
+      if (!name || !text) return;
+
+      const list = document.getElementById('messagesList');
+      const newCard = document.createElement('div');
+      newCard.className = "bg-white text-slate-800 p-2 rounded-xl text-xs shadow-sm border-l-4 border-emerald-400";
+      newCard.innerHTML = `
+        <div class="flex justify-between items-center font-bold text-slate-900">
+          <span>${escapeHTML(name)}</span>
+          <span class="text-[10px] text-emerald-600 font-bold">✨ Novo</span>
+        </div>
+        <p class="text-slate-600 mt-0.5">${escapeHTML(text)}</p>
+      `;
+
+      list.insertBefore(newCard, list.firstChild);
+      
+      const countEl = document.getElementById('msgCountBadge');
+      countEl.innerText = `${list.children.length} recados`;
+
+      document.getElementById('msgForm').reset();
+      closeModal('modalMessage');
+      fireConfetti();
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+
+    // COMPARTILHAR CONVITE
+    function shareInvite() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Convite: Aniversário de 2 Anos do Kaique Leon',
+          text: 'Você está convidado para o aniversário de 2 anos do Kaique Leon! 🚗💨 31 de Outubro às 18h.',
+          url: window.location.href,
+        }).catch(() => {});
+      } else {
+        const dummy = document.createElement("textarea");
+        dummy.value = window.location.href;
+        document.body.appendChild(dummy);
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        const msg = document.createElement("div");
+        msg.innerText = "Link do convite copiado!";
+        msg.className = "fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full text-xs shadow-lg z-50 border border-yellow-300";
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 2500);
+      }
+    }
+  </script>
+
+</body>
+</html>
