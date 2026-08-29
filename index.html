@@ -373,9 +373,6 @@
 
       <!-- BOTÃO COMPARTILHAR CONVITE -->
       <div class="pt-2 pb-4 text-center">
-        <button onclick="shareInvite()" class="inline-flex items-center gap-2 text-xs font-bold text-yellow-200 hover:text-white bg-black/30 hover:bg-black/40 px-4 py-2 rounded-full border border-yellow-300/40 transition">
-          <i class="fa-solid fa-share-nodes"></i> Compartilhar Convite com Amigos
-        </button>
         <p class="text-[11px] text-white/70 mt-3 font-medium">
           Esperamos você para acelerar com a gente nessa festa! 🚗💨
         </p>
@@ -753,28 +750,7 @@
       );
     }
 
-    // COMPARTILHAR CONVITE
-    function shareInvite() {
-      if (navigator.share) {
-        navigator.share({
-          title: 'Convite: Aniversário de 2 Anos do Kaique Leon',
-          text: 'Você está convidado para o aniversário de 2 anos do Kaique Leon! 🚗💨 31 de Outubro às 18h.',
-          url: window.location.href,
-        }).catch(() => {});
-      } else {
-        const dummy = document.createElement("textarea");
-        dummy.value = window.location.href;
-        document.body.appendChild(dummy);
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
-        const msg = document.createElement("div");
-        msg.innerText = "Link do convite copiado!";
-        msg.className = "fixed bottom-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full text-xs shadow-lg z-50 border border-yellow-300";
-        document.body.appendChild(msg);
-        setTimeout(() => msg.remove(), 2500);
-      }
-    }
+   
   </script>
 
 </body>
